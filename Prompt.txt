@@ -1,0 +1,159 @@
+Project #4 - Due Monday-November 19, 23:59:59
+================================================================
+
+Our favorite alien is happy - he has sold his travel business 
+for a large sum of credits and has retired from business.  
+Now he has become fascinated with the social aspects of Earth 
+some culture.
+
+There are many aspects of Earth culture he wants to explore, 
+but he is sad that he must search so many sources for 
+information.  He has tasked you to create a centralized system 
+for perusing such data.  He needs it to be general enough that 
+he can easily add new data sources and still search.  He has 
+given you two example sources but insists that your solution 
+work as outlined below since he is in the process of acquiring 
+many other data sources.
+
+Xelkocle requirements:
+===============================================================
+0) The program must be written in PHP.
+1) Your program shall execute and run properly on the 
+   www.cs.uky.edu system.
+2) Your program shall process (read) a given JSON file 
+   (DataSources.json).  It will contain a JSON object of 2
+   JSON sub-objects.  Each object will have a "categories", 
+   "searchterms" sub-object.
+
+   "categories" will be a list of key/value pairs where
+        the key will be a description of the data-source and
+		the value with be the name of a file containing the
+		data corresponding to the description, for example:
+
+		"Emmy Awards - 2018 Nominations", "2018_Emmys.json"
+		
+   "searchterms" will be a list of key/value pairs where the key
+        is arbitrary.  The value will a search term that can
+		be used to search and report founds results from the
+		chosen data source.
+
+3) Your PHP program shall have two distinct pieces, one will
+   produce an HTML form and the other will accept the GET
+   parameters from that form to produce an HTML report.  Each
+   of these are described below.
+
+4) The form:  your program shall perform the following steps:
+   4.1) if the GET parameters are not present, display an HTML
+        form.
+   4.2) your program shall use the file_get_contents() PHP
+        function to read the file "DataSources.json".
+   4.3) your program shall use the json_decode() function
+        in an attempt to convert the contents of the file to
+		JSON objects.
+   4.4) your program shall output the HTML form with the
+        following requirements:  an input field that is
+		a pull-down menu of "categories" object keys
+		[give this parameter the name 'category'],
+		an input field that is a pull-down menu of the
+		"searchterms" object keys [give this parameter
+		the name 'whichfield'], and an input field
+		of text that is something the user wishes to
+		search for in the data source [give this parameter
+		the name 'findme'].
+   4.5) your program shall have an ACTION attribute
+        set to itself that is called when the final
+		input (with type submit) is clicked.
+5) The report: if the GET parameters are met, your program
+   shall do the following:
+
+   5.1) open and decode the JSON file corresponding to the
+        'category' parameter.  This will require you to
+		re-parse the DataSources.json file in order to find
+		the filename.  Your program shall NOT pass in the
+		filename!
+   5.2) Your program shall iterate through the data given
+        in the JSON objects.  If any sub-object of a given
+		parent object matches the key to 'whichfield' and
+		the value to 'findme', then your program shall
+		output the entire object!  
+		[Note that as you iterate through the parts of the 
+		object, you will not be able to output it unless
+		there is a match!  There will be points deducted
+		for inefficient code here!]
+
+		Also of note - the various sub-objects are not
+		to be hard-coded.  You must write your code to
+		parse in a way that does not rely on the programmer
+		knowing the data.  You'll need to use the gettype()
+		PHP function for this part.
+
+		Each data source will contain at most 3 levels of
+		objects.  You may use this information in your
+		solution.
+
+STEPS:
+=====================================================================
+
+Suggestions only:
+    1) Write a PHP function that takes a filename as a parameter.
+	   Read the file, decode it.
+	   Use a series of foreach() on the decoded data to output
+	   the data.
+
+	   Do this at the command line.
+	
+	2) Once you have read a file completely and output it, then
+	   start to think of a solution to print just the objects
+	   that have a match.
+
+=====================================================================
+
+PHP functions/methods/objects you may need:
+
+    isset() - will tell you if a variable is set.
+
+    file_get_contents() - will read in a file and return the contents
+                          as a string.
+
+    strlen() - return length of a string.
+
+    json_decode() - will take a string and return a JSON object.
+
+    json_last_error() - should be called after json_decode() to make sure
+                        the JSON object was valid.  For non-zero values 
+                        there was a error!
+    
+    var_dump() - will output a representation of a variable - use this
+                 for debugging your program.
+
+    foreach() - will iterate over an object or array allowing your
+                program to access individual elements.  Note that
+                nested objects/arrays may need to be processed with
+                another foreach().  Note there are multiple syntax
+                depending on the object.
+
+    file_exists() - checks if a filename exists.
+
+    $_GET[] is a global array PHP presents to the programmer.  It
+        will contain a list of key/value pairs with the key being the
+        name of each GET parameter in an HTML form.  The value will
+        (in theory) be the value the user puts in the form.  Use
+        isset() to see if a particular key exists.
+
+    gettype() - will return the type of a variable.
+
+
+Contract Requirements:
+====================================
+0) You shall submit your PHP file to Canvas named as 
+   "Lastname_p4.php", or "Lastname1Lastname2_p4.php" if you
+   work in a team.
+1) You shall properly comment your code including putting your
+   name(s) at the top.
+2) You shall follow Dr. Finkel's checklist for good programming:
+   http://www.cs.uky.edu/~raphael/checklist.html
+
+Teams:
+
+You have the option of working in teams of 2.  Each team member must
+contribute equally to the project.
